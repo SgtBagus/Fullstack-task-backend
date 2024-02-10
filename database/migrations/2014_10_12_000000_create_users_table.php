@@ -15,11 +15,36 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('image')->nullable();
+            $table->string('role');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
+
+        $defaultUserRows = [
+            [
+                'name'          => 'Admin',
+                'email'         => 'admin@admin.com',
+                'image' => 'https://wallpaperwaifu.com/wp-content/uploads/2023/03/hayase-yuuka-sportswear-blue-archive-thumb.jpg',
+                'role'          => 'admin',
+                'password'      => Hash::make('12345678'),
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+            [
+                'name'          => 'Sales',
+                'email'         => 'sales@sales.com',
+                'image' => 'https://wallpaperwaifu.com/wp-content/uploads/2023/03/hayase-yuuka-sportswear-blue-archive-thumb.jpg',
+                'role'          => 'sales',
+                'password'      => Hash::make('12345678'),
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ],
+        ];
+
+        DB::table('users')->insert($defaultUserRows);
     }
 
     /**
