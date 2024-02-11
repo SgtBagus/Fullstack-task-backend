@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Package;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserStoreRequest;
-use App\Models\User;
+use App\Http\Requests\PackageStoreRequest;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
-{
-
+class PackageController extends Controller {
     public function index(){
         try {
-            $users = User::all();
+            $package = Package::all();
     
             return response()->json([
-                'results' => $users,
+                'results' => $package,
                 'message' => "Success get Data"
             ], 200);
         } catch (\Exception $e) {
@@ -27,19 +25,18 @@ class UserController extends Controller
         }
     }
     
-
     public function show($id){
         try {
-            $users = User::find($id);
+            $packages = Package::find($id);
     
-            if(!$users){
+            if(!$packages){
                 return response()->json([
-                    'message' => 'user not found'
+                    'message' => 'Package not found'
                 ],404);
             }
     
             return response()->json([
-                'user' => $users
+                'packages' => $packages
             ],200);
         } catch (\Exception $e) {
             return response()->json([
@@ -48,13 +45,12 @@ class UserController extends Controller
         }
     }
 
-    public function create(UserStoreRequest $request){
+    public function create(PackageStoreRequest $request){
         try {
             //set validation
             $validator = Validator::make($request->all(), [
                 'name'      => 'required',
-                'email'     => 'required|email|unique:users',
-                'password'  => 'required|min:8|confirmed'
+                'price'     => 'required',
             ]);
     
             //if validation fails
@@ -62,18 +58,17 @@ class UserController extends Controller
                 return response()->json($validator->errors(), 422);
             }
 
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password'  => bcrypt($request->password),
-                'image' => $request->image,
-                'role' => $request->role,
+            $package = Package::create([
+                'name'      => $request->name,
+                'desc'      => $request->desc,
+                'price'     => $request->price,
+                'status'    => $request->status,
             ]);
 
             return response()->json([
-                'message' => "User successfully created",
-                'success' => true,
-                'user'    => $user,  
+                'message'   => "Package successfully created",
+                'success'   => true,
+                'package'      => $package,  
             ], 200);
 
         } catch (\Exception $e) {
@@ -83,25 +78,24 @@ class UserController extends Controller
         }
     }
 
-    public function update(UserStoreRequest $request, $id){
+    public function update(PackageStoreRequest $request, $id){
         try {
-            $users = User::find($id);
-            if(!$users){
-                return $users()->json([
-                    'message' => 'User not found!'
+            $packages = Package::find($id);
+            if(!$packages){
+                return $packages()->json([
+                    'message' => 'Packages not found!'
                 ],404);
             }
 
-            $users->name = $request->name;
-            $users->email = $request->email;
-            $users->password = bcrypt($request->password);
-            $users->image = $request->image;
-            $users->role = $request->role;
+            $packages->name     = $request->name;
+            $packages->desc     = $request->desc;
+            $packages->price    = $request->price;
+            $packages->status   = $request->status;
             
-            $users->save();
+            $packages->save();
 
             return response()->json([
-                'message' => 'User successfully updated'
+                'message' => 'Package successfully updated'
             ],200);
 
         } catch (\Exception $e) {
@@ -113,17 +107,17 @@ class UserController extends Controller
         
     public function delete($id){
 
-        $users = User::find($id);
-        if(!$users){
-            return $users()->json([
-                'message' => 'User not found!'
+        $packages = Package::find($id);
+        if(!$packages){
+            return $packages()->json([
+                'message' => 'Package not found!'
             ],404);
         }
 
-        $users->delete();
+        $packages->delete();
 
         return response()->json([
-            'message' => 'user succesfully deleted'
+            'message' => 'Package succesfully deleted'
         ],200);
     }
 }
