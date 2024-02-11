@@ -15,7 +15,7 @@ class PackageController extends Controller {
             $package = Package::all();
     
             return response()->json([
-                'results' => $package,
+                'data' => $package,
                 'message' => "Success get Data"
             ], 200);
         } catch (\Exception $e) {
@@ -36,7 +36,8 @@ class PackageController extends Controller {
             }
     
             return response()->json([
-                'packages' => $packages
+                'data' => $packages,
+                'message' => "Success get Data",
             ],200);
         } catch (\Exception $e) {
             return response()->json([
@@ -68,7 +69,7 @@ class PackageController extends Controller {
             return response()->json([
                 'message'   => "Package successfully created",
                 'success'   => true,
-                'package'      => $package,  
+                'data'      => $package,  
             ], 200);
 
         } catch (\Exception $e) {

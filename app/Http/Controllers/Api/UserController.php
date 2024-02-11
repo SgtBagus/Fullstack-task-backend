@@ -17,7 +17,7 @@ class UserController extends Controller
             $users = User::all();
     
             return response()->json([
-                'results' => $users,
+                'data' => $users,
                 'message' => "Success get Data"
             ], 200);
         } catch (\Exception $e) {
@@ -39,7 +39,8 @@ class UserController extends Controller
             }
     
             return response()->json([
-                'user' => $users
+                'data' => $users,
+                'message' => "Success get Data"
             ],200);
         } catch (\Exception $e) {
             return response()->json([
@@ -73,7 +74,7 @@ class UserController extends Controller
             return response()->json([
                 'message' => "User successfully created",
                 'success' => true,
-                'user'    => $user,  
+                'data'    => $user,  
             ], 200);
 
         } catch (\Exception $e) {

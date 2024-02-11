@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PackageController;
+use App\Http\Controllers\Api\CustomerController;
+
 use App\Http\Controllers\Api\ImageController;
 
 /*
@@ -39,6 +41,10 @@ Route::group(['middleware' => ['auth:api', 'role:admin']], function () {
     Route::post('package/update/{id}', [PackageController::class, 'update']);
 
     Route::delete('package/delete/{id}',[PackageController::class, 'delete']);
+    
+    // < ========================== >
+
+    Route::post('customer/updatestatus/{id}', [CustomerController::class, 'updatestatus']);
 });
 
 
@@ -46,6 +52,17 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('package', [PackageController::class, 'index']);
     Route::get('package/{id}', [PackageController::class, 'show']);
 
+    // < ========================== >
+
+    Route::get('customer', [CustomerController::class, 'index']);
+    Route::get('customer/{id}', [CustomerController::class, 'show']);
+
+    Route::post('customer/create', [CustomerController::class, 'create']);
+    Route::post('customer/update/{id}', [CustomerController::class, 'update']);
+
+    Route::delete('customer/delete/{id}',[CustomerController::class, 'delete']);
+
+    // < ========================== >
 
     Route::post('uploadImage', [ImageController::class, 'uploadImage']);
 });
