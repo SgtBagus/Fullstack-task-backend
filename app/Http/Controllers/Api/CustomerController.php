@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use DB;
+
 use App\Models\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerStoreRequest;
@@ -12,7 +14,27 @@ use Illuminate\Support\Facades\Validator;
 class CustomerController extends Controller {
     public function index(){
         try {
-            $customer = Customer::all();
+            $customer = DB::table('customers')->select(
+                'customers.id as id',
+                'customers.name as customerName',
+                'customers.phone as customerPhone',
+                'customers.address as customerAddress',
+                'customers.status as customerStatus',
+                'customers.ktpImage as customerKtpImage',
+                'customers.houseImage as customerHouseImage',
+                'packages.id as packageId',
+                'packages.name as packageName',
+                'packages.desc as packageDesc',
+                'packages.price as packageDesc',
+                'users.name as createdName',
+                'users.role as createdRole'
+            )->join(
+                'packages',
+                'customers.package_id','=','packages.id',
+            )->join(
+                'users',
+                'customers.created_by','=','users.id',
+            )->groupBy('customers.id')->get();
     
             return response()->json([
                 'data' => $customer,
