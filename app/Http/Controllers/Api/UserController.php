@@ -60,7 +60,10 @@ class UserController extends Controller
     
             //if validation fails
             if ($validator->fails()) {
-                return response()->json($validator->errors(), 422);
+                return response()->json([
+                    $validator->errors(),
+                    'message' => "Something went wrong!",
+                ], 500);
             }
 
             $user = User::create([
@@ -84,8 +87,14 @@ class UserController extends Controller
         }
     }
 
-    public function update(UserStoreRequest $request, $id){
+    public function update(Request $request, $id){
         try {
+            $validator = Validator::make($request->all(), [
+                'name'     => 'required',
+                'email'     => 'required|email|unique:users',
+                'role'     => 'required',
+            ]);
+
             $users = User::find($id);
             if(!$users){
                 return $users()->json([
@@ -95,7 +104,6 @@ class UserController extends Controller
 
             $users->name = $request->name;
             $users->email = $request->email;
-            $users->password = bcrypt($request->password);
             $users->image = $request->image;
             $users->role = $request->role;
             

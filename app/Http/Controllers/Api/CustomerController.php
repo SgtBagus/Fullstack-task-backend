@@ -25,7 +25,7 @@ class CustomerController extends Controller {
                 'packages.id as packageId',
                 'packages.name as packageName',
                 'packages.desc as packageDesc',
-                'packages.price as packageDesc',
+                'packages.price as packagePrice',
                 'users.name as createdName',
                 'users.role as createdRole'
             )->join(
