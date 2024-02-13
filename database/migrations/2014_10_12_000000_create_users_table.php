@@ -27,7 +27,7 @@ return new class extends Migration
             [
                 'name'          => 'Admin',
                 'email'         => 'admin@admin.com',
-                'image'         => 'https://wallpaperwaifu.com/wp-content/uploads/2023/03/hayase-yuuka-sportswear-blue-archive-thumb.jpg',
+                'image'         => 'https://www.shutterstock.com/image-vector/default-image-icon-vector-missing-600nw-2079504220.jpg',
                 'role'          => 'admin',
                 'password'      => Hash::make('12345678'),
                 'created_at'    => date('Y-m-d H:i:s'),
@@ -36,7 +36,7 @@ return new class extends Migration
             [
                 'name'          => 'Sales',
                 'email'         => 'sales@sales.com',
-                'image' => 'https://wallpaperwaifu.com/wp-content/uploads/2023/03/hayase-yuuka-sportswear-blue-archive-thumb.jpg',
+                'image'         => 'https://www.shutterstock.com/image-vector/default-image-icon-vector-missing-600nw-2079504220.jpg',
                 'role'          => 'sales',
                 'password'      => Hash::make('12345678'),
                 'created_at'    => date('Y-m-d H:i:s'),
