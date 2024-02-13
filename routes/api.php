@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth:api', 'role:admin']], function () {
     Route::delete('users/delete/{id}',[UserController::class, 'delete']);
 
     // < ========================== >
+    Route::get('package', [PackageController::class, 'index']);
+    Route::get('package/{id}', [PackageController::class, 'show']);
 
     Route::post('package/create', [PackageController::class, 'create']);
     Route::post('package/update/{id}', [PackageController::class, 'update']);
@@ -49,8 +51,7 @@ Route::group(['middleware' => ['auth:api', 'role:admin']], function () {
 
 
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::get('package', [PackageController::class, 'index']);
-    Route::get('package/{id}', [PackageController::class, 'show']);
+    Route::get('activePackage', [PackageController::class, 'getActivePackage']);
 
     // < ========================== >
 

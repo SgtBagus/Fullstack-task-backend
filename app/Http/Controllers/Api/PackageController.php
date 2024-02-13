@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use DB;
+
 use App\Models\Package;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PackageStoreRequest;
@@ -25,6 +27,24 @@ class PackageController extends Controller {
         }
     }
     
+    public function getActivePackage(){
+        try {
+            $package = DB::table('packages')
+            ->select('*')
+            ->where('status','=','true')
+            ->get();
+    
+            return response()->json([
+                'data' => $package,
+                'message' => "Success get Data"
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => "Something went wrong!"
+            ], 500);
+        }
+    }
+
     public function show($id){
         try {
             $packages = Package::find($id);
