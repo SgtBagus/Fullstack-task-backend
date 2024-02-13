@@ -1,5 +1,3 @@
-Saya hanya dapat memberikan instruksi teks di sini, tetapi Anda dapat menyalin dan menempelkannya ke dalam file README.md menggunakan editor teks pilihan Anda. Berikut adalah isi file README.md:
-
 ```markdown
 # Instalasi Laravel
 
@@ -40,4 +38,3 @@ php artisan serve
 Server akan berjalan di [http://localhost:8000](http://localhost:8000) secara default.
 
 Pastikan untuk memeriksa dokumentasi resmi Laravel untuk informasi lebih lanjut: [Laravel Documentation](https://laravel.com/docs).
-```
